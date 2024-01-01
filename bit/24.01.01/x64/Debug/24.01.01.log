@@ -1,0 +1,4 @@
+﻿  test.cpp
+D:\code_c\bit\24.01.01\test.cpp(37,13): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+D:\code_c\bit\24.01.01\test.cpp(43,13): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+  24.01.01.vcxproj -> D:\code_c\bit\24.01.01\x64\Debug\24.01.01.exe

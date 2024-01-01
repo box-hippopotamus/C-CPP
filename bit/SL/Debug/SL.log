@@ -1,0 +1,6 @@
+﻿  SeqList.h
+  test.c
+test.obj : error LNK2019: 无法解析的外部符号 _SLInit，函数 _Sltest 中引用了该符号
+test.obj : error LNK2019: 无法解析的外部符号 _SLDestroy，函数 _Sltest 中引用了该符号
+test.obj : error LNK2019: 无法解析的外部符号 _SLPushBack，函数 _Sltest 中引用了该符号
+C:\code\SL\Debug\SL.exe : fatal error LNK1120: 3 个无法解析的外部命令

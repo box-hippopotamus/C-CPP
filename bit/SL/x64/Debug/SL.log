@@ -1,0 +1,5 @@
+﻿test.obj : error LNK2019: 无法解析的外部符号 SLInit，函数 Sltest 中引用了该符号
+test.obj : error LNK2019: 无法解析的外部符号 SLDestroy，函数 Sltest 中引用了该符号
+test.obj : error LNK2019: 无法解析的外部符号 SLPushBack，函数 Sltest 中引用了该符号
+test.obj : error LNK2019: 无法解析的外部符号 SLPrint，函数 Sltest 中引用了该符号
+C:\code\SL\x64\Debug\SL.exe : fatal error LNK1120: 4 个无法解析的外部命令

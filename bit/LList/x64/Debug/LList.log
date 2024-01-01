@@ -1,0 +1,5 @@
+﻿  List.c
+D:\code_c\bit\LList\List.c(157,6): error C2084: 函数“void LTErase(LTNode *)”已有主体
+D:\code_c\bit\LList\List.c(140,6): message : 参见“LTErase”的前一个定义
+  test.c
+  正在生成代码...

@@ -1,0 +1,7 @@
+﻿  SeqList.h
+  test.c
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(1134,5): error MSB6006: “link.exe”已退出，代码为 1120。
+test.obj : error LNK2001: 无法解析的外部符号 SLPushBack
+test.obj : error LNK2001: 无法解析的外部符号 SLDestroy
+test.obj : error LNK2001: 无法解析的外部符号 SLInit
+C:\code\SL\x64\Release\SL.exe : fatal error LNK1120: 3 个无法解析的外部命令

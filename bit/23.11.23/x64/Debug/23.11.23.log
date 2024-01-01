@@ -1,0 +1,6 @@
+﻿  test.c
+D:\code_c\bit\23.11.23\test.c(369,6): warning C4101: “i”: 未引用的局部变量
+D:\code_c\bit\23.11.23\test.c(332): warning C4715: “pow”: 不是所有的控件路径都返回值
+D:\code_c\bit\23.11.23\test.c(347): warning C4715: “sumpow”: 不是所有的控件路径都返回值
+D:\code_c\bit\23.11.23\test.c(362): warning C4715: “sumpow2”: 不是所有的控件路径都返回值
+  23.11.23.vcxproj -> D:\code_c\bit\23.11.23\x64\Debug\23.11.23.exe

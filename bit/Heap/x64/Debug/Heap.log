@@ -1,0 +1,8 @@
+﻿  Heap.c
+D:\code_c\bit\Heap\Heap.c(29,6): warning C4047: “=”:“HPDataType”与“HPDataType *”的间接级别不同
+D:\code_c\bit\Heap\Heap.c(27,14): warning C4047: “初始化”:“HPDataType *”与“HPDataType”的间接级别不同
+  test.c
+D:\code_c\bit\Heap\test.c(73,8): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+  正在生成代码...
+MSVCRTD.lib(exe_main.obj) : error LNK2019: 无法解析的外部符号 main，函数 "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ) 中引用了该符号
+D:\code_c\bit\Heap\x64\Debug\Heap.exe : fatal error LNK1120: 1 个无法解析的外部命令

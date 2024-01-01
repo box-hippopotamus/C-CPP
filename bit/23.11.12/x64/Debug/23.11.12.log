@@ -1,0 +1,3 @@
+﻿  test.c
+C:\code\23.11.12\test.c(76,17): error C2011: “ListNode”:“struct”类型重定义
+C:\code\23.11.12\test.c(23,8): message : 参见“ListNode”的声明

@@ -1,0 +1,8 @@
+﻿  test.cpp
+D:\code_c\bit\23.12.31\test.cpp(21,9): warning C4311: “类型强制转换”: 从“char *”到“int”的指针截断
+D:\code_c\bit\23.12.31\test.cpp(21,9): warning C4302: “类型强制转换”: 从“char *”到“int”截断
+D:\code_c\bit\23.12.31\test.cpp(24,10): warning C4311: “类型强制转换”: 从“char *”到“int”的指针截断
+D:\code_c\bit\23.12.31\test.cpp(24,10): warning C4302: “类型强制转换”: 从“char *”到“int”截断
+D:\code_c\bit\23.12.31\test.cpp(27,8): warning C4311: “类型强制转换”: 从“char *”到“int”的指针截断
+D:\code_c\bit\23.12.31\test.cpp(27,8): warning C4302: “类型强制转换”: 从“char *”到“int”截断
+  23.12.31.vcxproj -> D:\code_c\bit\23.12.31\x64\Debug\23.12.31.exe
