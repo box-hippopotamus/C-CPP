@@ -1,0 +1,4 @@
+﻿  leetcode.cpp
+D:\code_c\bit\24.01.07\leetcode.cpp(10,14): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\code_c\bit\24.01.07\leetcode.cpp(11,14): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  24.01.07.vcxproj -> D:\code_c\bit\24.01.07\x64\Debug\24.01.07.exe
