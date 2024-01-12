@@ -36,7 +36,7 @@ void AdjustUp(HPDataType* a, int child)
 
 	while (child > 0)
 	{
-		if (a[child] < a[parent])//若想改为大堆，将此处的[<]改为大于[>]
+		if (a[child] > a[parent])//若想改为大堆，将此处的[<]改为大于[>]
 		{
 			Swap(&a[child], &a[parent]);
 			child = parent;
@@ -47,7 +47,6 @@ void AdjustUp(HPDataType* a, int child)
 			break;
 		}
 	}
-
 }
 
 //向下调整
@@ -61,12 +60,12 @@ void AdjustDown(HPDataType* a, int size, int parent)//parent为向下调整的开始点
 		//&&的前面的条件，是保证右孩子没有越界，因为有可能parent到了倒数第二层
 		// 但是有左孩子却没有右孩子，此时访问右孩子就会越界，若&&前面的不成立
 		//就会短路，&&后面的a[child + 1]就不会访问
-		if (child + 1 < size && a[child + 1] < a[child])//若想改为大堆，将此处的[<]改为大于[>]
+		if (child + 1 < size && a[child + 1] > a[child])//若想改为大堆，将此处的[<]改为大于[>]
 		{
 			child++;
 		}
 
-		if (a[child] < a[parent])//若想改为大堆，将此处的[<]改为大于[>]
+		if (a[child] > a[parent])//若想改为大堆，将此处的[<]改为大于[>]
 		{
 			Swap(&a[child], &a[parent]);
 			parent = child;
@@ -102,7 +101,7 @@ void HeapPush(HP* php, HPDataType x)
 	AdjustUp(php->a, php->size - 1);
 }
 
-//删除(要求必须删除堆顶)  意义：每次都能取出最小值（小堆）/最大值（大堆）
+//删除(要求必须删除堆顶) 意义：每次都能取出最小值（小堆）/最大值（大堆）
 void HeapPop(HP* php)
 {
 	assert(php);

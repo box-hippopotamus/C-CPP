@@ -87,15 +87,53 @@ void CreateData()
 	fclose(fin);
 }
 
-void PrintTopK(const char* file, int k)
-{
-	FILE* fout = fopen(file, "r");
-	if (fout == NULL)
-	{
-		perror("fopen fail");
-		return;
-	}
+//void PrintTopK(const char* file, int k)
+//{
+//	FILE* fout = fopen(file, "r");
+//	if (fout == NULL)
+//	{
+//		perror("fopen fail");
+//		return;
+//	}
+//
+//	//------------------------------
+//	//建立一个k个数字的小堆
+//	int* minheap = (int*)malloc(sizeof(int) * k);
+//	if (minheap == NULL)
+//	{
+//		perror("malloc fail");
+//		return;
+//	}
+//
+//	for (int i = 0; i < k; i++)
+//	{
+//		fscanf(fout, "%d", &minheap[i]);
+//		AdjustUp(minheap, i);
+//	}
+//
+//	//-------------------------------
+//	//将后续数字与当前的堆中数据比较
+//	int x = 0;
+//	while (fscanf(fout, "%d", &x) != EOF)
+//	{
+//		if (x > minheap[0])
+//		{
+//			minheap[0] = x;
+//			AdjustDown(minheap, k, 0);
+//		}
+//	}
+//
+//	for (int i = 0; i < k; i++)
+//	{
+//		printf("%d ", minheap[i]);
+//	}
+//	printf("\n");
+//
+//	fclose(fout);
+//}
 
+void PrintTopK(int* a, int size, int k)
+{
 	//------------------------------
 	//建立一个k个数字的小堆
 	int* minheap = (int*)malloc(sizeof(int) * k);
@@ -107,18 +145,17 @@ void PrintTopK(const char* file, int k)
 
 	for (int i = 0; i < k; i++)
 	{
-		fscanf(fout, "%d", &minheap[i]);
+		minheap[i] = a[i];
 		AdjustUp(minheap, i);
 	}
 
 	//-------------------------------
 	//将后续数字与当前的堆中数据比较
-	int x = 0;
-	while (fscanf(fout, "%d", &x) != EOF)
+	for (int i = k; i < size; i++)
 	{
-		if (x > minheap[0])
+		if (a[i] > minheap[0])
 		{
-			minheap[0] = x;
+			minheap[0] = a[i];
 			AdjustDown(minheap, k, 0);
 		}
 	}
@@ -128,10 +165,7 @@ void PrintTopK(const char* file, int k)
 		printf("%d ", minheap[i]);
 	}
 	printf("\n");
-
-	fclose(fout);
 }
-
 
 int main()
 {
