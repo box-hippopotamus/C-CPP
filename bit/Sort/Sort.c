@@ -165,6 +165,38 @@ void BubbleSort(int* a, int n)
 
 // 快速排序递归实现
 // 快速排序hoare版本
+
+//霍尔取第一个节点做key
+//void PartSort1(int* a, int begin, int end)
+//{
+//	if (begin >= end)
+//		return;
+//
+//	int left = begin, right = end;
+//	int keyi = begin;
+//
+//	while (left < right)
+//	{
+//		while (left < right && a[right] >= a[keyi])
+//		{
+//			right--;
+//		}
+//
+//		while (left < right && a[left] <= a[keyi])
+//		{
+//			left++;
+//		}
+//
+//		Swap(&a[left], &a[right]);
+//	}
+//
+//	Swap(&a[left], &a[keyi]);
+//	keyi = left;
+//	PartSort1(a, begin, keyi - 1);
+//	PartSort1(a, keyi + 1, end);
+//}
+
+//三数取中
 int GetMidi(int* a, int begin, int end)
 {
 	int midi = (begin + end) / 2;
@@ -178,20 +210,25 @@ int GetMidi(int* a, int begin, int end)
 		else
 			return end;
 	}
-	else
+	else 
 	{
-
+		if (a[end] < a[midi])
+			return midi;
+		else if (a[end] > a[begin])
+			return begin;
+		else
+			return end;
 	}
 }
 
-void PartSort1(int* a, int begin, int end) 
+//霍尔三数取中快排 + 小区间优化
+int PartSort1(int* a, int begin, int end)
 {
-	if (begin >= end)
-		return;
+	int midi = GetMidi(a, begin, end);
+	Swap(&a[midi], &a[begin]);//将取出的中间值放在首位做key
 
-	 
 	int left = begin, right = end;
-	int keyi = begin; 
+	int keyi = begin;
 
 	while (left < right)
 	{
@@ -210,37 +247,166 @@ void PartSort1(int* a, int begin, int end)
 
 	Swap(&a[left], &a[keyi]);
 	keyi = left;
-	PartSort1(a, begin, keyi - 1);
-	PartSort1(a, keyi + 1, end);
+
+	return keyi;
 }
 
 // 快速排序挖坑法
-int PartSort2(int* a, int left, int right)
+int PartSort2(int* a, int begin, int end)
 {
+	int midi = GetMidi(a, begin, end);
+	Swap(&a[midi], &a[begin]);
 
+	int key = a[begin];
+	int hole = begin;
+
+	while (begin < end)
+	{
+		//右边找小，填到右左边的坑
+		while (begin < end && a[end] >= key)
+		{
+			end--;
+		}
+
+		a[hole] = a[end];
+		hole = end;
+
+		//左边找大，填到右边的坑
+		while (begin < end && a[begin] <= key)
+		{
+			begin++;
+		}
+
+		a[hole] = a[begin];
+		hole = begin;
+	}
+
+	a[hole] = key;
+	return hole;
 }
 
-// 快速排序前后指针法
-int PartSort3(int* a, int left, int right)
+// 快速排序前后指针法 
+int PartSort3(int* a, int begin, int end)
 {
+	int midi = GetMidi(a, begin, end);
+	Swap(&a[midi], &a[begin]);
 
+	int prev = begin;
+	int cur = prev + 1;
+
+	int keyi = begin;
+
+	while (cur <= end)
+	{
+		if (a[cur] < a[keyi] && ++prev != cur)//避免自己和自己交换
+			Swap(&a[prev], &a[cur]);
+
+		cur++;
+	}
+
+	Swap(&a[prev], &a[keyi]);
+	keyi = prev;
+
+	return keyi;
 }
 
-void QuickSort(int* a, int left, int right)
+void QuickSort(int* a, int begin, int end)
 {
+	if (begin >= end)
+		return;
+
+	//int keyi = PartSort1(a, begin, end);//霍尔 + 小区间优化
+	//int keyi = PartSort2(a, begin, end);//挖坑法
+	int keyi = PartSort3(a, begin, end);//前后指针法
+	QuickSort(a, begin, keyi - 1);
+	QuickSort(a, keyi + 1, end);
 
 }
 
 // 快速排序 非递归实现
-void QuickSortNonR(int* a, int left, int right)
+void QuickSortNonR(int* a, int begin, int end)
 {
+	Stack s;
+	StackInit(&s);
+	StackPush(&s, end);
+	StackPush(&s, begin);
 
+	while (!StackEmpty(&s))
+	{
+		int left = StackTop(&s);
+		StackPop(&s);
+		int right = StackTop(&s);
+		StackPop(&s);
+
+		int keyi = PartSort3(a, left, right);
+		if (left < keyi - 1)
+		{
+			StackPush(&s, keyi - 1);
+			StackPush(&s, left);
+		}
+
+		if (keyi + 1 < right)
+		{
+			StackPush(&s, right);
+			StackPush(&s, keyi + 1);
+		}
+	}
+	StackDestroy(&s);
 }
 
 // 归并排序递归实现
-void MergeSort(int* a, int n)
+void _MergeSort(int* a, int begin, int end, int* tmp)
+{
+	if (begin >= end)
+		return;
 
-{}
+	int mid = (begin + end) / 2;
+	_MergeSort(a, begin, mid, tmp);
+	_MergeSort(a, mid + 1, end, tmp);
+
+	///归并
+	int begin1 = begin, end1 = mid;
+	int begin2 = mid + 1, end2 = end;
+
+	int i = begin;//使拷贝的数组与原数组的位置对应
+	while (begin1 <= end1 && begin2 <= end2)
+	{
+		if (a[begin1] < a[begin2])
+		{
+			tmp[i++] = a[begin1++];
+		}
+		else
+		{
+			tmp[i++] = a[begin2++];
+		}
+	}
+
+	while (begin1 <= end1)
+	{
+		tmp[i++] = a[begin1++];
+	}
+
+	while (begin2 <= end2)
+	{
+		tmp[i++] = a[begin2++];
+	}
+
+	memcpy(a + begin, tmp + begin, sizeof(int) * (end - begin + 1));
+}
+
+void MergeSort(int* a, int n)
+{
+	int* tmp = (int*)malloc(sizeof(int) * n);
+	if (tmp == NULL)
+	{
+		perror("malloc fali!");
+		exit(1);
+	}
+
+	_MergeSort(a, 0, n - 1, tmp);
+
+	free(tmp);
+}
 
 // 归并排序非递归实现
 void MergeSortNonR(int* a, int n)
@@ -266,6 +432,8 @@ void TestOP()
 	int* a5 = (int*)malloc(sizeof(int) * N);
 	int* a6 = (int*)malloc(sizeof(int) * N);
 	int* a7 = (int*)malloc(sizeof(int) * N);
+	int* a8 = (int*)malloc(sizeof(int) * N);
+
 
 	for (int i = 0; i < N; ++i)
 	{
@@ -276,6 +444,7 @@ void TestOP()
 		a5[i] = a1[i];
 		a6[i] = a1[i];
 		a7[i] = a1[i];
+		a8[i] = a1[i];
 	}
 
 	//clock函数返回从系统启动到执行此语句的毫秒数
@@ -296,7 +465,7 @@ void TestOP()
 	int end4 = clock();
 
 	int begin5 = clock();
-	PartSort1(a5, 0, N - 1);
+	QuickSort(a5, 0, N - 1);
 	int end5 = clock();
 
 	int begin6 = clock();
@@ -307,6 +476,10 @@ void TestOP()
 	//BubbleSort(a7, N);
 	//int end7 = clock();
 
+	int begin8 = clock();
+	QuickSortNonR(a8, 0, N - 1);
+	int end8 = clock();
+
 	//printf("InsertSort:%d\n", end1 - begin1);//做启动时间与结束时间的差值,得出此排序的时间
 	printf("ShellSort:%d\n", end2 - begin2);
 	//printf("SelectSort:%d\n", end3 - begin3);
@@ -314,6 +487,7 @@ void TestOP()
 	printf("QuickSort:%d\n", end5 - begin5);
 	printf("MergeSort:%d\n", end6 - begin6);
 	//printf("BubbleSort:%d\n", end7 - begin7);
+	printf("QuickSortNonR:%d\n", end8 - begin8);
 
 	free(a1);
 	free(a2);
@@ -322,4 +496,6 @@ void TestOP()
 	free(a5);
 	free(a6);
 	free(a7);
+	free(a8);
+
 }

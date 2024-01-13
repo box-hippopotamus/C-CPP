@@ -9,17 +9,17 @@ int main()
 	for (i = 0; i < 20; i++)
 	{
 		a[i] = rand() % 1000;
-		printf("%3d ", a[i]);
+		printf("%4d ", a[i]);
 	}
 	printf("\n");
 
 	int n = sizeof(a) / sizeof(a[0]);
 	//---------------------------
-	PartSort1(&a, 0, n - 1);
+	MergeSort(a, n);
 	//---------------------------
 	for (i = 0; i < 20; i++)
 	{
-		printf("%3d ", a[i]);
+		printf("%4d ", a[i]);
 	}
 	printf("\n");
 
