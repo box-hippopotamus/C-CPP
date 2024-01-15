@@ -166,7 +166,7 @@ void BubbleSort(int* a, int n)
 // 快速排序递归实现
 // 快速排序hoare版本
 
-//霍尔取第一个节点做key
+////霍尔取第一个节点做key
 //void PartSort1(int* a, int begin, int end)
 //{
 //	if (begin >= end)
@@ -315,12 +315,11 @@ void QuickSort(int* a, int begin, int end)
 	if (begin >= end)
 		return;
 
-	//int keyi = PartSort1(a, begin, end);//霍尔 + 小区间优化
+	//int keyi = PartSort1(a, begin, end);//霍尔
 	//int keyi = PartSort2(a, begin, end);//挖坑法
 	int keyi = PartSort3(a, begin, end);//前后指针法
 	QuickSort(a, begin, keyi - 1);
 	QuickSort(a, keyi + 1, end);
-
 }
 
 // 快速排序 非递归实现
@@ -353,6 +352,8 @@ void QuickSortNonR(int* a, int begin, int end)
 	}
 	StackDestroy(&s);
 }
+
+
 
 // 归并排序递归实现
 void _MergeSort(int* a, int begin, int end, int* tmp)
@@ -498,4 +499,20 @@ void TestOP()
 	free(a7);
 	free(a8);
 
+}
+
+void QuickSort(int* a, int begin, int end) 
+{
+	int THRESHOLD = 10; // 设定阈值为10 
+	if (begin >= end) { return; }
+	if (end - begin + 1 <= THRESHOLD)
+	{
+		InsertSort(a, begin, end);// 使用插入排序对小区间进行排序
+	}
+	else
+	{
+		int keyi = PartSort(a, begin, end);
+		QuickSort(a, begin, keyi - 1); // 递归小于区间
+		QuickSort(a, keyi + 1, end); // 递归大于区间
+	}
 }
