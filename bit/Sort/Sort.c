@@ -365,7 +365,7 @@ void _MergeSort(int* a, int begin, int end, int* tmp)
 	_MergeSort(a, begin, mid, tmp);
 	_MergeSort(a, mid + 1, end, tmp);
 
-	///归并
+	//归并
 	int begin1 = begin, end1 = mid;
 	int begin2 = mid + 1, end2 = end;
 
@@ -401,7 +401,7 @@ void MergeSort(int* a, int n)
 	if (tmp == NULL)
 	{
 		perror("malloc fali!");
-		exit(1);
+		return;
 	}
 
 	_MergeSort(a, 0, n - 1, tmp);
@@ -412,13 +412,100 @@ void MergeSort(int* a, int n)
 // 归并排序非递归实现
 void MergeSortNonR(int* a, int n)
 {
+	int* tmp = (int*)malloc(sizeof(int) * n);
+	if (tmp == NULL)
+	{
+		perror("malloc fali!");
+		return;
+	}
 
+	int gap = 1;
+
+	while (gap < n)
+	{
+		for (int i = 0; i < n; i += 2 * gap)
+		{
+			int begin1 = i, end1 = i + gap - 1;
+			int begin2 = i + gap, end2 = i + 2 * gap - 1;
+			//对[begin1, end1][begin2, end2]归并
+
+			if (end1 > n || begin2 > n)
+			{
+				break;
+			}
+
+			if (end2 > n)
+			{
+				end2 = n - 1;
+			}
+
+			int j = begin1;
+			while (begin1 <= end1 && begin2 <= end2)
+			{
+				if (a[begin1] < a[begin2])
+				{
+					tmp[j++] = a[begin1++];
+				}
+				else
+				{
+					tmp[j++] = a[begin2++];
+				}
+			}
+
+			while (begin1 <= end1)
+			{
+				tmp[j++] = a[begin1++];
+			}
+
+			while (begin2 <= end2)
+			{
+				tmp[j++] = a[begin2++];
+			}
+
+			memcpy(a + i, tmp + i, sizeof(int) * (end2 - i + 1));
+		}
+
+		gap *= 2;
+	}
+
+	free(tmp);
 }
 
 // 计数排序
 void CountSort(int* a, int n)
 {
+	int min = a[0], max = a[0];//防止不初始化，导致被给到的随机值参与了比较
 
+	for (int i = 1; i < n; i++)
+	{
+		if (a[i] < min)
+			min = a[i];
+
+		if (a[i] > max)
+			max = a[i];
+	}
+
+	int range = max - min + 1;
+	int* count = (int*)calloc(range, sizeof(int));
+	if (count == NULL)
+	{
+		printf("calloc fail!");
+		return;
+	}
+
+	for (int i = 0; i < n; i++)
+	{
+		count[a[i] - min]++;
+	}
+
+	int i = 0;
+	for (int j = 0; j < range; j++)
+	{
+		while (count[j]--)
+		{
+			a[i++] = j + min;
+		}
+	}
 }
 
 // 测试排序的性能对比
@@ -434,6 +521,8 @@ void TestOP()
 	int* a6 = (int*)malloc(sizeof(int) * N);
 	int* a7 = (int*)malloc(sizeof(int) * N);
 	int* a8 = (int*)malloc(sizeof(int) * N);
+	int* a9 = (int*)malloc(sizeof(int) * N);
+
 
 
 	for (int i = 0; i < N; ++i)
@@ -446,6 +535,8 @@ void TestOP()
 		a6[i] = a1[i];
 		a7[i] = a1[i];
 		a8[i] = a1[i];
+		a9[i] = a1[i];
+
 	}
 
 	//clock函数返回从系统启动到执行此语句的毫秒数
@@ -481,6 +572,10 @@ void TestOP()
 	QuickSortNonR(a8, 0, N - 1);
 	int end8 = clock();
 
+	int begin9 = clock();
+	CountSort(a9, N);
+	int end9 = clock();
+
 	//printf("InsertSort:%d\n", end1 - begin1);//做启动时间与结束时间的差值,得出此排序的时间
 	printf("ShellSort:%d\n", end2 - begin2);
 	//printf("SelectSort:%d\n", end3 - begin3);
@@ -489,6 +584,7 @@ void TestOP()
 	printf("MergeSort:%d\n", end6 - begin6);
 	//printf("BubbleSort:%d\n", end7 - begin7);
 	printf("QuickSortNonR:%d\n", end8 - begin8);
+	printf("CountSort:%d\n", end9 - begin9);
 
 	free(a1);
 	free(a2);
@@ -498,21 +594,5 @@ void TestOP()
 	free(a6);
 	free(a7);
 	free(a8);
-
-}
-
-void QuickSort(int* a, int begin, int end) 
-{
-	int THRESHOLD = 10; // 设定阈值为10 
-	if (begin >= end) { return; }
-	if (end - begin + 1 <= THRESHOLD)
-	{
-		InsertSort(a, begin, end);// 使用插入排序对小区间进行排序
-	}
-	else
-	{
-		int keyi = PartSort(a, begin, end);
-		QuickSort(a, begin, keyi - 1); // 递归小于区间
-		QuickSort(a, keyi + 1, end); // 递归大于区间
-	}
+	free(a9);
 }

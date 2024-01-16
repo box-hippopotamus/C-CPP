@@ -15,7 +15,7 @@ int main()
 
 	int n = sizeof(a) / sizeof(a[0]);
 	//---------------------------
-	MergeSort(a, n);
+	CountSort(a, n);
 	//---------------------------
 	for (i = 0; i < 20; i++)
 	{
