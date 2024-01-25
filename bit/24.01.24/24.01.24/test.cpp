@@ -1,5 +1,5 @@
-#include <iostream>
-using namespace std;
+//#include <iostream>
+//using namespace std;
 
 //int main() 
 //{
@@ -28,42 +28,70 @@ using namespace std;
 //	return 0;
 //}
 
+//int main()
+//{
+//	long long M;
+//	int N;
+//
+//	cin >> M >> N;
+//
+//	char numArr[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+//
+//	long long num = M;
+//	int count = 0;
+//
+//	while (num != 0)
+//	{
+//		count++;
+//		num = num / N;
+//	}
+//
+//	char* ptr = new char [count];
+//
+//	num = M;
+//	int i = 0;
+//
+//	while (num != 0)
+//	{
+//		ptr[i++] = numArr[num % N];
+//		num = num / N;
+//	}
+//
+//	while (i > 0)
+//	{
+//		cout << ptr[i - 1];
+//		i--;
+//	}
+//
+//	delete[] ptr;
+//
+//	return 0;
+//}
+
+
+#include <iostream>
+using namespace std;
+
 int main()
 {
-	long long M;
-	int N;
+	int a[10] = { 0 };
 
-	cin >> M >> N;
 
-	char numArr[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
-	long long num = M;
-	int count = 0;
-
-	while (num != 0)
-	{
-		count++;
-		num = num / N;
-	}
-
-	char* ptr = new char [count];
-
-	num = M;
-	int i = 0;
-
-	while (num != 0)
-	{
-		ptr[i++] = numArr[num % N];
-		num = num / N;
-	}
-
-	while (i > 0)
-	{
-		cout << ptr[i - 1];
-		i--;
-	}
-
-	delete[] ptr;
-
-	return 0;
 }
+
+//void func(char** m)
+//{
+//	++m;
+//	cout << *m << endl;
+//}
+//
+//int main() 
+//{
+//
+//	static char* a[] = { "morning", "afternoon", "evening" };
+//	char** p;
+//	p = a;
+//	func(p);
+//	return 0;
+//}

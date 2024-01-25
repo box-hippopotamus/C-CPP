@@ -1,2 +1,5 @@
 ﻿  test.cpp
-  24.01.24.vcxproj -> D:\code_c\bit\24.01.24\x64\Debug\24.01.24.exe
+D:\code_c\bit\24.01.24\24.01.24\test.cpp(80,10): error C2440: “初始化”: 无法从“int (*)[10]”转换为“int *”
+  D:\code_c\bit\24.01.24\24.01.24\test.cpp(80,10):
+  指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+  
